@@ -2,9 +2,8 @@ package com.crud.springbootjwtauthorization.model;
 
 //database model
 import lombok.Data;
-
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 //usage of Lombok
 @Data
@@ -26,7 +25,7 @@ public class User {
     private String name;
 
     @Column(name = "create_time", nullable = false)
-    private LocalDate createTime;
+    private LocalDateTime createTime;
 
     //add roles to DB
     @Enumerated(EnumType.STRING)
