@@ -1,2 +1,7 @@
-package com.crud.springbootjwtauthorization.model;public enum Role {
+package com.crud.springbootjwtauthorization.model;
+
+//roles
+public enum Role {
+    USER,
+    ADMIN
 }
