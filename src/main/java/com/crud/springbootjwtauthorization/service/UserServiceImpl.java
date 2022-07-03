@@ -5,7 +5,10 @@ import com.crud.springbootjwtauthorization.model.User;
 import com.crud.springbootjwtauthorization.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,8 +42,13 @@ public class UserServiceImpl implements UserService {
 
     //change user roles
     @Override
+    @Transactional //transactional is required when excecuting an update/delete query.
     public void changeRole(Role newrole, String username)
     {
         userRepository.updateUserRole(username, newrole);
     }
+
+    //find all users
+    @Override
+    public List<User> findAllUsers(){return userRepository.findAll();}
 }
