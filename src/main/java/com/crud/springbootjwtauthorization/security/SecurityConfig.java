@@ -11,7 +11,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
@@ -25,12 +26,6 @@ public class SecurityConfig {
     public SecurityConfig(CustomUserDetailsService customUserDetailsService)
     {
         this.customUserDetailsService = customUserDetailsService;
-    }
-
-    @Bean
-    AuthenticationManager authenticationManager(
-            AuthenticationManagerBuilder builder, PasswordEncoder encoder) throws Exception {
-        return builder.userDetailsService(customUserDetailsService).passwordEncoder(encoder).and().build();
     }
 
     @Bean
@@ -50,5 +45,22 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder()
     {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(
+            AuthenticationManagerBuilder builder, PasswordEncoder encoder) throws Exception {
+        return builder.userDetailsService(customUserDetailsService).passwordEncoder(encoder).and().build();
+    }
+    public WebMvcConfigurer corsConfigurer()
+    {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("*");
+            }
+        };
     }
 }
