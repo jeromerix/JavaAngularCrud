@@ -32,4 +32,10 @@ public class User {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    @Transient
+    private String accesToken;
+
+    @Transient
+    private String refreshToken;
+
 }

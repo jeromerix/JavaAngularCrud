@@ -1,5 +1,6 @@
 package com.crud.springbootjwtauthorization.security;
 
+import com.crud.springbootjwtauthorization.security.jwt.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -29,6 +31,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public JwtAuthorizationFilter jwtAuthorizationFilter(){
+        return new JwtAuthorizationFilter();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
         http.authorizeRequests();
@@ -38,6 +45,9 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/api/authentication/**").permitAll() //login en registreer pre-path
                 .anyRequest().authenticated();
+
+        http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
