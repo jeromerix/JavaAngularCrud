@@ -21,9 +21,9 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService{
     @Value("${app.jwt.refresh-expiration-in-ms}")
     private Long REFRESH_EXPIRATION_IN_MS;
 
-    private JwtRefreshTokenRepository jwtRefreshTokenRepository;
-    private UserRepository userRepository;
-    private JwtProvider jwtProvider;
+    private final JwtRefreshTokenRepository jwtRefreshTokenRepository;
+    private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     public JwtRefreshTokenServiceImpl(JwtRefreshTokenRepository jwtRefreshTokenRepository, UserRepository userRepository, JwtProvider jwtProvider) {
         this.jwtRefreshTokenRepository = jwtRefreshTokenRepository;

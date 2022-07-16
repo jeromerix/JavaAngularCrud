@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/authentication")
 public class AuthenticationController {
 
-    private AuthenticationService authenticationService;
-    private UserService userService;
-    private JwtRefreshTokenService jwtRefreshTokenService;
+    private final AuthenticationService authenticationService;
+    private final UserService userService;
+    private final JwtRefreshTokenService jwtRefreshTokenService;
 
     public AuthenticationController(AuthenticationService authenticationService, UserService userService, JwtRefreshTokenService jwtRefreshTokenService) {
         this.authenticationService = authenticationService;
